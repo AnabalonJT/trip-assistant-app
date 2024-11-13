@@ -8,6 +8,8 @@ class TripsController < ApplicationController
 
   # GET /trips/1 or /trips/1.json
   def show
+    @trip = Trip.find(params[:id])
+    @recipes = Recipe.all
   end
 
   # GET /trips/new
@@ -17,6 +19,13 @@ class TripsController < ApplicationController
 
   # GET /trips/1/edit
   def edit
+  end
+
+  def add_recipe
+    @trip = Trip.find(params[:trip_id])
+    @recipe = Recipe.find(params[:recipe_id])
+    @trip.recipes << @recipe
+    redirect_to trip_path(@trip), notice: 'Recipe added successfully.'
   end
 
   # POST /trips or /trips.json
