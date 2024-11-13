@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Recipe trips</h1>
+
+<div id="recipe_trips">
+  <% @recipe_trips.each do |recipe_trip| %>
+    <%= render recipe_trip %>
+    <p>
+      <%= link_to "Show this recipe trip", recipe_trip %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New recipe trip", new_recipe_trip_path %>

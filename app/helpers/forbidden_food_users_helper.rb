@@ -1,0 +1,2 @@
+module ForbiddenFoodUsersHelper
+end

@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ingredient: one
+  user: one
+  trip: one
+  verified: false
+
+two:
+  ingredient: two
+  user: two
+  trip: two
+  verified: false

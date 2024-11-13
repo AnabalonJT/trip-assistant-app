@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Assignation to buys</h1>
+
+<div id="assignation_to_buys">
+  <% @assignation_to_buys.each do |assignation_to_buy| %>
+    <%= render assignation_to_buy %>
+    <p>
+      <%= link_to "Show this assignation to buy", assignation_to_buy %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New assignation to buy", new_assignation_to_buy_path %>

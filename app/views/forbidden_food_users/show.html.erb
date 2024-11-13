@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @forbidden_food_user %>
+
+<div>
+  <%= link_to "Edit this forbidden food user", edit_forbidden_food_user_path(@forbidden_food_user) %> |
+  <%= link_to "Back to forbidden food users", forbidden_food_users_path %>
+
+  <%= button_to "Destroy this forbidden food user", @forbidden_food_user, method: :delete %>
+</div>

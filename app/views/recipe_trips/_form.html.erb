@@ -1,0 +1,27 @@
+<%= form_with(model: recipe_trip) do |form| %>
+  <% if recipe_trip.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(recipe_trip.errors.count, "error") %> prohibited this recipe_trip from being saved:</h2>
+
+      <ul>
+        <% recipe_trip.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :recipe_id, style: "display: block" %>
+    <%= form.text_field :recipe_id %>
+  </div>
+
+  <div>
+    <%= form.label :trip_id, style: "display: block" %>
+    <%= form.text_field :trip_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

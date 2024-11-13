@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @assignation_to_buy %>
+
+<div>
+  <%= link_to "Edit this assignation to buy", edit_assignation_to_buy_path(@assignation_to_buy) %> |
+  <%= link_to "Back to assignation to buys", assignation_to_buys_path %>
+
+  <%= button_to "Destroy this assignation to buy", @assignation_to_buy, method: :delete %>
+</div>

@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Forbidden food users</h1>
+
+<div id="forbidden_food_users">
+  <% @forbidden_food_users.each do |forbidden_food_user| %>
+    <%= render forbidden_food_user %>
+    <p>
+      <%= link_to "Show this forbidden food user", forbidden_food_user %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New forbidden food user", new_forbidden_food_user_path %>
