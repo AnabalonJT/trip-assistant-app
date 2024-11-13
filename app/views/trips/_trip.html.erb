@@ -14,4 +14,9 @@
     <%= trip.end_date %>
   </p>
 
+  <p>
+    <strong>Link to join:</strong>
+    <%="#{Rails.application.routes.default_url_options[:host]}:#{Rails.application.routes.default_url_options[:port]}#{join_trip_trip_path(trip.id)}"%>>
+  </p>
+
 </div>
