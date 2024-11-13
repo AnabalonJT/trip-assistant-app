@@ -1,10 +1,17 @@
 Rails.application.routes.draw do
-  root "trips#index"
-
   devise_for :users
+
+  # Set the root to the Devise login page
+  authenticated :user do
+    root 'trips#index', as: :authenticated_root
+  end
+
+  unauthenticated do
+    root 'devise/sessions#new', as: :unauthenticated_root
+  end
+
+  # Other routes, such as resources
   resources :trips
-  resources :recipes
-  resources :ingredients
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
