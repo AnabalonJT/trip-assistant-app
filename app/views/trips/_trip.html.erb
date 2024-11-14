@@ -14,4 +14,22 @@
     <%= trip.end_date %>
   </p>
 
+  <% if defined?(events) %>
+    <p>
+      <strong>Link to join:</strong>
+      <%="#{Rails.application.routes.default_url_options[:host]}:#{Rails.application.routes.default_url_options[:port]}#{join_trip_trip_path(trip.id)}"%>>
+    </p>
+
+    <%= month_calendar(start_date: trip.start_date) do |date| %>
+      <div class="<%= 'within-trip-range' if date >= trip.start_date && date <= trip.end_date %>">
+        <%= date.day %>
+        <% if events.select { |event| event[:date].to_date == date }.any? %>
+          <% events.select { |event| event[:date].to_date == date }.each do |event| %>
+            <p><%= event[:name] %> </p>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  <%end%>
+
 </div>
