@@ -1,0 +1,20 @@
+<h2>Ingredientes necesarios</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Alimento</th>
+      <th>Cantidad</th>
+      <th>Unidad de medida</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @ingredients.each do |ingredient, quantity| %>
+      <tr>
+        <td><%= ingredient.name %></td>
+        <td><%= quantity %></td>
+        <td><%= ingredient.measure %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

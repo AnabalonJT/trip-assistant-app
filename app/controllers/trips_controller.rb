@@ -9,7 +9,6 @@ class TripsController < ApplicationController
 
   # GET /trips/1 or /trips/1.json
   def show
-
     @recipes = Recipe.all
     @users = @trip.users.includes(:forbidden_food_users)
 
@@ -17,6 +16,18 @@ class TripsController < ApplicationController
     @events << {name: "Inicio viaje", date: @trip.start_date}
     @events << {name: "Fin viaje", date: @trip.end_date}
     #@events.concat(trip.recipes.map { |recipe| { name: recipe.name, date: recipe.date } })
+    @recipe_ingredients = @trip.recipes
+    @ingredients = {}
+
+    @recipe_ingredients.each do |recipe|
+      recipe.calculate_ingredients(@trip).each do |ingredient, quantity|
+        if @ingredients.key?(ingredient)
+          @ingredients[ingredient] += quantity
+        else
+          @ingredients[ingredient] = quantity
+        end
+      end
+    end
   end
 
   # GET /trips/new
@@ -84,7 +95,6 @@ class TripsController < ApplicationController
   end
 
   def join_trip
-    UserTrip.find_or_create_by(user: current_user, trip: @trip)
     UserTrip.find_or_create_by(user: current_user, trip: @trip)
     redirect_to @trip
   end
