@@ -10,13 +10,14 @@ Rails.application.routes.draw do
       root 'devise/sessions#new', as: :unauthenticated_root
     end
   end
-  
+
   # Other routes, such as resources
   resources :trips do
+    get "join_trip", on: :member
     post 'add_recipe', to: 'trips#add_recipe', as: :add_recipe, on: :member
   end
   resources :recipes do
-    get "join_trip", to: 'trips#join_trip', as: :join_trip, on: :member
+    get "join_trip", on: :member
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
