@@ -1,0 +1,26 @@
+<h2>Trip Assistants</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name | </th>
+      <th>Forbidden Foods</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.first_name %></td>
+        <td>
+          <% if user.forbidden_ingredients.any? %>
+            <% user.forbidden_ingredients.each do |ingredient| %>
+              <%= ingredient.name %> (<span class="glyphicon glyphicon-remove"></span>)
+            <% end %>
+          <% else %>
+            <span class="glyphicon glyphicon-ok"></span> Sin restricciones
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -11,6 +11,7 @@ class TripsController < ApplicationController
   def show
     @trip = Trip.find(params[:id])
     @recipes = Recipe.all
+    @users = @trip.users.includes(:forbidden_food_users)
 
     @events = []
     @events << {name: "Inicio viaje", date: @trip.start_date}

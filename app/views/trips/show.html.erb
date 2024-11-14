@@ -1,6 +1,6 @@
 <h1><%= @trip.title %></h1>
 
-
+<%= render partial: 'users', locals: { users: @users } %>
 <h2>Recipes for this Trip</h2>
 <ul>
   <% @trip.recipes.each do |recipe| %>
