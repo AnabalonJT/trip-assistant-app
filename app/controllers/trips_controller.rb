@@ -22,10 +22,19 @@ class TripsController < ApplicationController
   end
 
   def add_recipe
-    @trip = Trip.find(params[:trip_id])
+    @trip = Trip.find(params[:id])
     @recipe = Recipe.find(params[:recipe_id])
-    @trip.recipes << @recipe
-    redirect_to trip_path(@trip), notice: 'Recipe added successfully.'
+    unless @trip.recipes.exists?(@recipe.id)
+      if @trip.recipes << @recipe
+        redirect_to trip_path(@trip), notice: 'Recipe added successfully.'
+      else
+        Rails.logger.debug "Failed to add recipe: #{@trip.errors.full_messages}"
+        redirect_to trip_path(@trip), alert: 'Failed to add recipe.'
+      end
+    else
+      notice = 'Recipe is already added to the trip.'
+      redirect_to trip_path(@trip), notice: notice
+    end
   end
 
   # POST /trips or /trips.json
