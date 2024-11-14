@@ -1,10 +1,21 @@
-<p style="color: green"><%= notice %></p>
+<h1><%= @trip.title %></h1>
+
+
+<h2>Recipes for this Trip</h2>
+<ul>
+  <% @trip.recipes.each do |recipe| %>
+    <li><%= recipe.name %></li>
+  <% end %>
+</ul>
 
 <%= render partial: 'trips/trip', locals: { trip: @trip, events: @events } %>
 
-<div>
-  <%= link_to "Edit this trip", edit_trip_path(@trip) %> |
-  <%= link_to "Back to trips", trips_path %>
 
-  <%= button_to "Destroy this trip", @trip, method: :delete %>
-</div>
+<h3>Add a Recipe to this Trip</h3>
+<%= form_with url: add_recipe_trip_path(@trip.id), method: :post do |form| %>
+  <div class="field">
+    <%= form.label :recipe_id, "Select Recipe" %>
+    <%= form.collection_select :recipe_id, Recipe.where.not(id: @trip.recipes.pluck(:id)), :id, :name, prompt: "Choose a recipe" %>
+  </div>
+  <%= form.submit "Add Recipe" %>
+<% end %>

@@ -9,11 +9,13 @@ class TripsController < ApplicationController
 
   # GET /trips/1 or /trips/1.json
   def show
+    @trip = Trip.find(params[:id])
+    @recipes = Recipe.all
+
     @events = []
     @events << {name: "Inicio viaje", date: @trip.start_date}
     @events << {name: "Fin viaje", date: @trip.end_date}
     #@events.concat(trip.recipes.map { |recipe| { name: recipe.name, date: recipe.date } })
-
   end
 
   # GET /trips/new
@@ -23,6 +25,22 @@ class TripsController < ApplicationController
 
   # GET /trips/1/edit
   def edit
+  end
+
+  def add_recipe
+    @trip = Trip.find(params[:id])
+    @recipe = Recipe.find(params[:recipe_id])
+    unless @trip.recipes.exists?(@recipe.id)
+      if @trip.recipes << @recipe
+        redirect_to trip_path(@trip), notice: 'Recipe added successfully.'
+      else
+        Rails.logger.debug "Failed to add recipe: #{@trip.errors.full_messages}"
+        redirect_to trip_path(@trip), alert: 'Failed to add recipe.'
+      end
+    else
+      notice = 'Recipe is already added to the trip.'
+      redirect_to trip_path(@trip), notice: notice
+    end
   end
 
   # POST /trips or /trips.json
