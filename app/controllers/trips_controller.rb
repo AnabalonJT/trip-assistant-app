@@ -85,6 +85,7 @@ class TripsController < ApplicationController
 
   def join_trip
     UserTrip.find_or_create_by(user: current_user, trip: @trip)
+    UserTrip.find_or_create_by(user: current_user, trip: @trip)
     redirect_to @trip
   end
 
