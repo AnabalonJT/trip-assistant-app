@@ -12,21 +12,13 @@ Rails.application.routes.draw do
 
   # Other routes, such as resources
   resources :trips do
-
     post 'add_recipe', to: 'trips#add_recipe', as: :add_recipe, on: :member
   end
-  resources :recipes
-
-    get "join_trip", on: :member
+  
+  resources :recipes do
+    get "join_trip" , to: 'trips#join_trip', as: :join_trip, on: :member
   end
 
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Defines the root path route ("/")
-  # root "posts#index"
-  root "trips#index"
 end
