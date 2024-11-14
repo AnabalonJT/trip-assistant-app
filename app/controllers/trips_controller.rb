@@ -1,13 +1,19 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: %i[ show edit update destroy ]
+  before_action :set_trip, only: %i[ show edit update destroy join_trip]
+  before_action :check_participation_trip, only: %i[show edit update destroy]
 
   # GET /trips or /trips.json
   def index
-    @trips = Trip.all
+    @trips = current_user.trips
   end
 
   # GET /trips/1 or /trips/1.json
   def show
+    @events = []
+    @events << {name: "Inicio viaje", date: @trip.start_date}
+    @events << {name: "Fin viaje", date: @trip.end_date}
+    #@events.concat(trip.recipes.map { |recipe| { name: recipe.name, date: recipe.date } })
+
   end
 
   # GET /trips/new
@@ -25,6 +31,7 @@ class TripsController < ApplicationController
 
     respond_to do |format|
       if @trip.save
+        UserTrip.create(user: current_user, trip: @trip)
         format.html { redirect_to @trip, notice: "Trip was successfully created." }
         format.json { render :show, status: :created, location: @trip }
       else
@@ -57,6 +64,11 @@ class TripsController < ApplicationController
     end
   end
 
+  def join_trip
+    UserTrip.create(user: current_user, trip: @trip)
+    redirect_to @trip
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_trip
@@ -66,5 +78,11 @@ class TripsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def trip_params
       params.require(:trip).permit(:title, :start_date, :end_date)
+    end
+
+    def check_participation_trip
+      unless @trip.users.include?(current_user)
+        redirect_to trips_path, alert: 'No participas de este viaje'
+      end
     end
 end
