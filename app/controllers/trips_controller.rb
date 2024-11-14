@@ -9,7 +9,7 @@ class TripsController < ApplicationController
 
   # GET /trips/1 or /trips/1.json
   def show
-    @trip = Trip.find(params[:id])
+
     @recipes = Recipe.all
     @users = @trip.users.includes(:forbidden_food_users)
 
@@ -84,7 +84,7 @@ class TripsController < ApplicationController
   end
 
   def join_trip
-    UserTrip.create(user: current_user, trip: @trip)
+    UserTrip.find_or_create_by(user: current_user, trip: @trip)
     redirect_to @trip
   end
 
