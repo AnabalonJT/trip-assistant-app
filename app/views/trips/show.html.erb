@@ -1,6 +1,6 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @trip %>
+<%= render partial: 'trips/trip', locals: { trip: @trip, events: @events } %>
 
 <div>
   <%= link_to "Edit this trip", edit_trip_path(@trip) %> |

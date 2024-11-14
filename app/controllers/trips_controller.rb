@@ -1,14 +1,19 @@
 class TripsController < ApplicationController
   before_action :set_trip, only: %i[ show edit update destroy join_trip]
-  before_action :check_participation_trip, only: %i[show]
+  before_action :check_participation_trip, only: %i[show edit update destroy]
 
   # GET /trips or /trips.json
   def index
-    @trips = Trip.all
+    @trips = current_user.trips
   end
 
   # GET /trips/1 or /trips/1.json
   def show
+    @events = []
+    @events << {name: "Inicio viaje", date: @trip.start_date}
+    @events << {name: "Fin viaje", date: @trip.end_date}
+    #@events.concat(trip.recipes.map { |recipe| { name: recipe.name, date: recipe.date } })
+
   end
 
   # GET /trips/new
